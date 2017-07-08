@@ -2,40 +2,11 @@ let Node = require('./node.js');
 
 module.exports = class ArticleParser {
   constructor(article) {
-    this.root = new Node(article);
-    this.json = {
-      pmid: this.parsePmid(),
-      dateCreated: {
-        year: '',
-        month: '',
-        day: '',
-        utc: '',
-      },
-      dateCompleted: {
-        year: '',
-        month: '',
-        day: '',
-        utc: '',
-      },
-      article: {
-        title: '',
-        abstract: [
-          {
-            label: '',
-            content: '',
-          },
-        ],
-        summary: '',
-        journal: {
-          issn: '',
-          issue: {
-            volume: '',
-            issue: '',
-            pubDate: '',
-            type: '',
-          },
-        }
-      },
+    this._root = new Node(article);
+    this._nodes = {
+      pmid: this.findNode('MedlineCitation > PMID'),
+      dateCreated: this.findNode('MedlineCitation > DateCreated'),
+      article: this.findNode('MedlineCitation > Article'),
     };
   }
 
@@ -44,7 +15,7 @@ module.exports = class ArticleParser {
     let next = null;
     nodes.forEach((nodeTag) => {
       if (!next) {
-        next = this.root.findChild(nodeTag);
+        next = this._root.findChild(nodeTag);
       } else {
         let curr = next;
         next = curr.findChild(nodeTag);
@@ -57,11 +28,12 @@ module.exports = class ArticleParser {
     return path.split(' > ');
   }
 
-  parsePmid() {
-    let pmid = {
-      value: '',
-      version: '',
-    };
-    console.log(this.findNode('MedlineCitation > DateCompleted > Year').text);
+  get root() {
+    return this._root;
   }
+
+  get node() {
+    return this._nodes;
+  }
+
 }

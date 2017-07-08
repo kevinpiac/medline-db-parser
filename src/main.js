@@ -1,11 +1,7 @@
-var bigXml = require('big-xml');
-
-var reader = bigXml.createReader('sample.xml', /^(PubmedArticle)$/, { gzip: false });
+let bigXml = require('big-xml');
+let reader = bigXml.createReader('sample.xml.gz', /^(PubmedArticle)$/, { gzip: true });
+let ArticleParser = require('./classes/articleParser.js');
 
 reader.on('record', function(record) {
-  let medlineCitation = record.children[0];
-  let pubmedData = record.children[1];
-  let pmid = medlineCitation.children[0].text;
-
-  /*init project*/
+  let articleParser = new ArticleParser(record);
 });

@@ -9,6 +9,7 @@
   "author": "Kevin Piacentini <kevinpiac@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "big-xml": "^1.0.0"
+    "big-xml": "^1.0.0",
+    "xml-stream": "^0.4.5"
   }
 }

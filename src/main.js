@@ -4,5 +4,5 @@ let ArticleParser = require('./classes/articleParser.js');
 
 reader.on('record', function(record) {
   let articleParser = new ArticleParser(record);
-  console.log(articleParser.node);
+  console.log(articleParser.nodes.pmid.obj);
 });

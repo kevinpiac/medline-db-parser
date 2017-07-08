@@ -1,10 +1,11 @@
-let Node = require('./node.js');
+const Node = require('./node.js');
+const Pmid = require('./pmid.js');
 
 module.exports = class ArticleParser {
   constructor(article) {
     this._root = new Node(article);
     this._nodes = {
-      pmid: this.findNode('MedlineCitation > PMID'),
+      pmid: new Pmid(this.findNode('MedlineCitation > PMID')),
       dateCreated: this.findNode('MedlineCitation > DateCreated'),
       article: this.findNode('MedlineCitation > Article'),
     };
@@ -32,7 +33,7 @@ module.exports = class ArticleParser {
     return this._root;
   }
 
-  get node() {
+  get nodes() {
     return this._nodes;
   }
 

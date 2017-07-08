@@ -15,6 +15,10 @@ module.exports = class Node {
     return this.node.tag;
   }
 
+  get attrs() {
+    return this.node.attrs;
+  }
+
   get children() {
     return this.node.children;
   }

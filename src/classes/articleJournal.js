@@ -6,12 +6,12 @@ module.exports = class ArticleJournal {
 
     this._issn = {
       value: issn.text,
-      type: issn.attrs.IssnType,
+      type: issn.getAttr('IssnType'),
     };
     this._journalIssue = {
       volume: journalIssue.findChild('Volume').text,
       issue: journalIssue.findChild('Issue').text,
-      citedMedium: journalIssue.attrs.CitedMedium,
+      citedMedium: journalIssue.getAttr('CitedMedium'),
     };
     this._title = this._root.findChild('Title').text;
     this._isoAbbreviation = this._root.findChild('ISOAbbreviation').text;

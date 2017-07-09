@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "big-xml": "^1.0.0",
-    "xml-stream": "^0.4.5"
+    "mongoose": "^4.11.1"
   }
 }

@@ -53,18 +53,30 @@ module.exports = class Node {
   }
 
   get text() {
-    return this.node.text;
+    if (this.node && this.node.text) {
+      return this.node.text;
+    }
+    return null;
   }
 
   get tag() {
-    return this.node.tag;
+    if (this.node && this.node.tag) {
+      return this.node.tag;
+    }
+    return null;
   }
 
   get attrs() {
-    return this.node.attrs;
+    if (this.node && this.node.attrs) {
+      return this.node.attrs;
+    }
+    return null;
   }
 
   get children() {
-    return this.node.children;
+    if (this.node && this.node.children) {
+      return this.node.children;
+    }
+    return null;
   }
 }

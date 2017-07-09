@@ -7,10 +7,20 @@ module.exports = class Node {
     return path.split(' > ');
   }
 
+
+  /**
+   * Take a tagName (string) and returns the corresponding element located in
+   * direct children. To apply a deep search, use findNode method instead.
+   */
   findChild(tagName) {
     return new Node(this.node.children.find((x => x.tag === tagName)));
   }
 
+  /**
+   * Take a path (string) in following format: "elem1 > elem 2 > elem 3"
+   *
+   * Returns a new Node instance if path is found
+   */
   findNode(path) {
     let nodes = this._pathToArray(path);
     let next = null;

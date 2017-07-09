@@ -39,10 +39,12 @@ module.exports = class Node {
    * Transforms each child in Node instance and apply function func on it.
    */
   eachChildNode(func) {
-    this.node.children.forEach((child) => {
-      let childNode = new Node(child);
-      func(childNode);
-    });
+    if (this.node && this.node.children) {
+      this.node.children.forEach((child) => {
+        let childNode = new Node(child);
+        func(childNode);
+      });
+    }
   }
 
   getAttr(attrName) {

@@ -12,7 +12,7 @@ module.exports = class ArticleParser {
       pmid: new ArticlePmid(this._root),
       dateCreated: new ArticleDate(this._root),
       journal: new ArticleJournal(this._root),
-      //authorList: new AuthorList(this._root),
+      authorList: new AuthorList(this._root),
       title: this._root.findNode('MedlineCitation > Article > ArticleTitle').text,
       abstact: new ArticleAbstract(this._root),
     };
@@ -33,7 +33,7 @@ module.exports = class ArticleParser {
       journal: this.nodes.journal.obj,
       title: this.nodes.title,
       abstact: this.nodes.abstact.list,
-      //authors: this.nodes.authorList.list,
+      authors: this.nodes.authorList.list,
     }
   }
 }

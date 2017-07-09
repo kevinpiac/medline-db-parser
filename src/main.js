@@ -20,27 +20,40 @@ const Article = mongoose.model('article', ArticleSchema);
 const testFolder = './sampleDir/';
 const fs = require('fs');
 
-fs.readdir(testFolder, (err, files) => {
-  files.forEach((file) => {
-    let fileName = file;
-    let fileUrl = `${__dirname}/sampleDir/${file}`;
-    let splits = file.split('.');
-    let ext = splits[splits.length - 1];
-    if (ext === 'gz') {
-      let reader = bigXml.createReader(fileUrl, /^(PubmedArticle)$/, { gzip: true });
+function parseFiles(files, index) {
+  let fileName = files[index];
+  let file = fileName;
+  console.log('file', fileName, 'index', index);
+  let fileUrl = `${__dirname}/sampleDir/${file}`;
+  let splits = file.split('.');
+  let ext = splits[splits.length - 1];
+  if (ext === 'gz') {
+    let reader = bigXml.createReader(fileUrl, /^(PubmedArticle)$/, { gzip: true });
 
-      reader.on('record', function(record) {
-        let articleParser = new ArticleParser(record);
-        //console.log(articleParser.obj);
-        let article = new Article(articleParser.obj);
-        article.save((err) => {
-          if (!err) {
-            process.stdout.write('.');
-          } else {
-            process.stdout.write('E');
-          }
-        });
+    reader.on('record', function(record) {
+      let articleParser = new ArticleParser(record);
+      //console.log(articleParser.obj);
+      let article = new Article(articleParser.obj);
+      article.save((err) => {
+        if (!err) {
+          //process.stdout.write('.');
+        } else {
+          process.stdout.write('E');
+        }
       });
-    }
-  });
+    });
+    reader.on('end', function() {
+      index += 1;
+      if (index < files.length - 1) {
+        return parseFiles(files, index);
+      } else {
+        console.log('END');
+        return ;
+      }
+    });
+  }
+}
+
+fs.readdir(testFolder, (err, files) => {
+  parseFiles(files, 0);
 })

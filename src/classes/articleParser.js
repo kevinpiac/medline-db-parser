@@ -3,6 +3,7 @@ const ArticlePmid = require('./articlePmid.js');
 const ArticleDate = require('./articleDate.js');
 const ArticleJournal = require('./ArticleJournal.js');
 const AuthorList = require('./AuthorList.js');
+const ArticleAbstract = require('./ArticleAbstract.js');
 
 module.exports = class ArticleParser {
   constructor(article) {
@@ -13,6 +14,7 @@ module.exports = class ArticleParser {
       journal: new ArticleJournal(this._root),
       authorList: new AuthorList(this._root),
       title: this._root.findNode('MedlineCitation > Article > ArticleTitle').text,
+      abstact: new ArticleAbstract(this._root),
     };
   }
 
@@ -30,6 +32,7 @@ module.exports = class ArticleParser {
       dateCreated: this.nodes.dateCreated.obj,
       journal: this.nodes.journal.obj,
       title: this.nodes.title,
+      abstact: this.nodes.abstact.list,
       authors: this.nodes.authorList.list,
     }
   }

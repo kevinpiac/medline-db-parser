@@ -45,6 +45,13 @@ module.exports = class Node {
     });
   }
 
+  getAttr(attrName) {
+    if (this.attrs && this.attrs[attrName]) {
+      return this.attrs[attrName]
+    }
+    return null;
+  }
+
   get text() {
     return this.node.text;
   }

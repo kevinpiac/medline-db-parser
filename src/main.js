@@ -52,6 +52,7 @@ function parseFiles(files, index) {
       }
     });
   } else {
+    index += 1;
     if (index < files.length - 1) {
       return parseFiles(files, index);
     } else {

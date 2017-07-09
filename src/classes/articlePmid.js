@@ -1,4 +1,4 @@
-module.exports = class Pmid {
+module.exports = class ArticlePmid {
   constructor(node) {
     this._node = node;
     this._version = node.attrs.Version;

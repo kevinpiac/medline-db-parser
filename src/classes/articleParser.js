@@ -1,12 +1,13 @@
 const Node = require('./node.js');
-const Pmid = require('./pmid.js');
+const ArticlePmid = require('./articlePmid.js');
+const ArticleDate = require('./articleDate.js');
 
 module.exports = class ArticleParser {
   constructor(article) {
     this._root = new Node(article);
     this._nodes = {
-      pmid: new Pmid(this.findNode('MedlineCitation > PMID')),
-      dateCreated: this.findNode('MedlineCitation > DateCreated'),
+      pmid: new ArticlePmid(this.findNode('MedlineCitation > PMID')),
+      dateCreated: new ArticleDate(this.findNode('MedlineCitation > DateCreated')),
       article: this.findNode('MedlineCitation > Article'),
     };
   }

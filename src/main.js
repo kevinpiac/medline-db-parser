@@ -16,17 +16,31 @@ const ArticleSchema = mongoose.Schema({
 
 const Article = mongoose.model('article', ArticleSchema);
 
-let reader = bigXml.createReader('sample.xml.gz', /^(PubmedArticle)$/, { gzip: true });
 
-reader.on('record', function(record) {
-  let articleParser = new ArticleParser(record);
-  //console.log(articleParser.obj);
-  let article = new Article(articleParser.obj);
-  article.save((err) => {
-    if (!err) {
-      process.stdout.write('.');
-    } else {
-      process.stdout.write('E');
+const testFolder = './sampleDir/';
+const fs = require('fs');
+
+fs.readdir(testFolder, (err, files) => {
+  files.forEach((file) => {
+    let fileName = file;
+    let fileUrl = `${__dirname}/sampleDir/${file}`;
+    let splits = file.split('.');
+    let ext = splits[splits.length - 1];
+    if (ext === 'gz') {
+      let reader = bigXml.createReader(fileUrl, /^(PubmedArticle)$/, { gzip: true });
+
+      reader.on('record', function(record) {
+        let articleParser = new ArticleParser(record);
+        //console.log(articleParser.obj);
+        let article = new Article(articleParser.obj);
+        article.save((err) => {
+          if (!err) {
+            process.stdout.write('.');
+          } else {
+            process.stdout.write('E');
+          }
+        });
+      });
     }
   });
-});
+})

@@ -25,6 +25,16 @@ module.exports = class Node {
     return next;
   }
 
+  /**
+   * Transforms each child in Node instance and apply function func on it.
+   */
+  eachChildNode(func) {
+    this.node.children.forEach((child) => {
+      let childNode = new Node(child);
+      func(childNode);
+    });
+  }
+
   get text() {
     return this.node.text;
   }

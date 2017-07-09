@@ -1,0 +1,10 @@
+version: '2'
+services:
+  medline-db-parser:
+    container_name: medline-db-parser
+    image: medline-db-parser
+    build: .
+    volumes:
+      - ./src:/code
+    tty: true
+    stdin_open: true

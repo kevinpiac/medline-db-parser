@@ -11,7 +11,10 @@ module.exports = class ArticleJournal {
     this._journalIssue = {
       volume: journalIssue.findChild('Volume').text,
       issue: journalIssue.findChild('Issue').text,
+      citedMedium: journalIssue.attrs.CitedMedium,
     };
+    this._title = this._root.findChild('Title').text;
+    this._isoAbbreviation = this._root.findChild('ISOAbbreviation').text;
   }
 
   get issn() {
@@ -19,13 +22,23 @@ module.exports = class ArticleJournal {
   }
 
   get journalIssue() {
-    return this._journalIssue
+    return this._journalIssue;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  get isoAbbreviation() {
+    return this._isoAbbreviation;
   }
 
   get obj() {
     return {
       issn: this.issn,
       journalIssue: this.journalIssue,
+      title: this.title,
+      isoAbbreviation: this.isoAbbreviation,
     };
   }
 }

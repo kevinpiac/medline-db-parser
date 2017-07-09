@@ -1,8 +1,8 @@
 module.exports = class ArticlePmid {
-  constructor(node) {
-    this._node = node;
-    this._version = node.attrs.Version;
-    this._value = node.text;
+  constructor(root) {
+    this._node = root.findNode('MedlineCitation > PMID');
+    this._version = this._node.attrs.Version;
+    this._value = this._node.text;
   }
 
   get version() {

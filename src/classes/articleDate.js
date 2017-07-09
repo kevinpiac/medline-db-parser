@@ -1,9 +1,9 @@
 module.exports = class ArticleDate {
-  constructor(node) {
-    this._node = node;
-    this._year = node.findChild('Year').text;
-    this._month = node.findChild('Month').text;
-    this._day = node.findChild('Day').text;
+  constructor(root) {
+    this._node = root.findNode('MedlineCitation > DateCreated');
+    this._year = this._node.findChild('Year').text;
+    this._month = this._node.findChild('Month').text;
+    this._day = this._node.findChild('Day').text;
   }
 
   get year() {

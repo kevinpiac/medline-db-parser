@@ -6,28 +6,9 @@ module.exports = class ArticleParser {
   constructor(article) {
     this._root = new Node(article);
     this._nodes = {
-      pmid: new ArticlePmid(this.findNode('MedlineCitation > PMID')),
-      dateCreated: new ArticleDate(this.findNode('MedlineCitation > DateCreated')),
-      article: this.findNode('MedlineCitation > Article'),
+      pmid: new ArticlePmid(this._root),
+      dateCreated: new ArticleDate(this._root),
     };
-  }
-
-  findNode(path) {
-    let nodes = this._pathToArray(path);
-    let next = null;
-    nodes.forEach((nodeTag) => {
-      if (!next) {
-        next = this._root.findChild(nodeTag);
-      } else {
-        let curr = next;
-        next = curr.findChild(nodeTag);
-      }
-    });
-    return next;
-  }
-
-  _pathToArray(path) {
-    return path.split(' > ');
   }
 
   get root() {
@@ -38,4 +19,10 @@ module.exports = class ArticleParser {
     return this._nodes;
   }
 
+  get obj() {
+    return {
+      pmid: this.nodes.pmid.obj,
+      dateCreated: this.nodes.pmid.obj,
+    }
+  }
 }

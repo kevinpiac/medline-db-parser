@@ -1,6 +1,7 @@
 const Node = require('./node.js');
 const ArticlePmid = require('./articlePmid.js');
 const ArticleDate = require('./articleDate.js');
+const ArticleJournal = require('./ArticleJournal.js');
 
 module.exports = class ArticleParser {
   constructor(article) {
@@ -8,6 +9,7 @@ module.exports = class ArticleParser {
     this._nodes = {
       pmid: new ArticlePmid(this._root),
       dateCreated: new ArticleDate(this._root),
+      journal: new ArticleJournal(this._root),
     };
   }
 
@@ -22,7 +24,8 @@ module.exports = class ArticleParser {
   get obj() {
     return {
       pmid: this.nodes.pmid.obj,
-      dateCreated: this.nodes.pmid.obj,
+      dateCreated: this.nodes.dateCreated.obj,
+      journal: this.nodes.journal.obj,
     }
   }
 }

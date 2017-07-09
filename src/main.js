@@ -17,17 +17,16 @@ const ArticleSchema = mongoose.Schema({
 const Article = mongoose.model('article', ArticleSchema);
 
 let reader = bigXml.createReader('sample.xml.gz', /^(PubmedArticle)$/, { gzip: true });
+
 reader.on('record', function(record) {
   let articleParser = new ArticleParser(record);
-  console.log(articleParser.obj);
-  /*
+  //console.log(articleParser.obj);
   let article = new Article(articleParser.obj);
   article.save((err) => {
     if (!err) {
-      console.log('Success');
+      process.stdout.write('.');
     } else {
-      console.log(err);
+      process.stdout.write('E');
     }
-  })
-  */
+  });
 });

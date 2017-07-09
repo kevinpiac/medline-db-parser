@@ -51,6 +51,13 @@ function parseFiles(files, index) {
         return ;
       }
     });
+  } else {
+    if (index < files.length - 1) {
+      return parseFiles(files, index);
+    } else {
+      console.log('END');
+      return ;
+    }
   }
 }
 

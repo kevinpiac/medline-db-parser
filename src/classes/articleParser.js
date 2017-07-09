@@ -1,9 +1,9 @@
 const Node = require('./node.js');
 const ArticlePmid = require('./articlePmid.js');
 const ArticleDate = require('./articleDate.js');
-const ArticleJournal = require('./ArticleJournal.js');
-const AuthorList = require('./AuthorList.js');
-const ArticleAbstract = require('./ArticleAbstract.js');
+const ArticleJournal = require('./articleJournal.js');
+const AuthorList = require('./authorList.js');
+const ArticleAbstract = require('./articleAbstract.js');
 
 module.exports = class ArticleParser {
   constructor(article) {
